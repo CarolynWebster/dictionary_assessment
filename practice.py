@@ -103,30 +103,47 @@ def get_sum_zero_pairs(numbers):
         [[-1, 1], [0, 0]]
     """
     
-    # Make an empty list to hold the pairs
-    zero_sum_pairs = []
     # make a copy of the numbers list so we don't change the original input
     # using set to eliminate any duplicate numbers and then convert back to list
     numbers_sorted = list(set(numbers[:]))
     # sort the list
     numbers_sorted.sort()
-    # loop through the numbers in the copy of the list
-    for num in numbers_sorted:
-        # if the inverse of that number is in the list
-        if -num in numbers:
-            # get the index of the matching inverse number
-            neg_num_index = numbers_sorted.index(-num)
-            # put the matching pair of numbers together
-            pair = [numbers_sorted[neg_num_index], num]
-            # we use the negative numbers first
-            # then break once we go over zero bc all pairs will have been created
-            if num <= 0:
-                #add the pair to the list
-                zero_sum_pairs.append(pair)
-            else:
-                break
+    
+    # when you forget that this is a dictionaries assignment - whoops!
+    
+    # # Make an empty list to hold the pairs
+    # zero_sum_pairs = []
+    # # loop through the numbers in the copy of the list
+    # for num in numbers_sorted:
+    #     # if the inverse of that number is in the list
+    #     if -num in numbers:
+    #         # get the index of the matching inverse number
+    #         neg_num_index = numbers_sorted.index(-num)
+    #         # put the matching pair of numbers together
+    #         pair = [numbers_sorted[neg_num_index], num]
+    #         # we use the negative numbers first
+    #         # then break once we go over zero bc all pairs will have been created
+    #         if num <= 0:
+    #             #add the pair to the list
+    #             zero_sum_pairs.append(pair)
+    #         else:
+    #             break
+    
+    #make a blank dictionary to hold the pairs
+    zero_pairs = {}
 
+    #loop through the list of numbers
+    for i in range(len(numbers_sorted)):
+        num = numbers_sorted[i]
+        #if the number in the list is less than 1
+        if num < 1:
+            #add it to the dictionary with the inverse of it's number
+            #once we hit 0 we stop bc all possible pairings will be created
+            zero_pairs[num] = [num, -num]
+        else:
+            break
 
+    zero_sum_pairs = sorted(zero_pairs.values())
     #return the list of pairs
     return zero_sum_pairs
 
